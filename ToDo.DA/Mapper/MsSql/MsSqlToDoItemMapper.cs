@@ -49,7 +49,7 @@ namespace ToDo.DA.Mapper.MsSql
                             item.Title = reader.GetString(reader.GetOrdinal("title"));
                             item.Description = reader.GetString(reader.GetOrdinal("description"));
                             item.Complete = reader.GetBoolean(reader.GetOrdinal("complete"));
-
+                            item.Parent_task_id = reader.GetGuid(reader.GetOrdinal("parent_task_id")).ToString();
                             items.Add(item);
                         }
                     }
@@ -69,7 +69,7 @@ namespace ToDo.DA.Mapper.MsSql
 
         public string Insert(IToDoItem toDoItem)
         {
-            string sql = "INSERT INTO ToDoItems (id, title, description, complete) OUTPUT INSERTED.id VALUES (NEWID(), @title, @description, 0)";
+            string sql = "INSERT INTO ToDoItems (id, title, description, complete, parent_task_id) OUTPUT INSERTED.id VALUES (NEWID(), @title, @description, 0, @parent_task_id)";
 
             // access the database and retrieve data
             using (IDbConnection conn = GetConnection())
@@ -79,6 +79,7 @@ namespace ToDo.DA.Mapper.MsSql
 
                 IDbDataParameter title = new SqlParameter("@title", toDoItem.Title);
                 IDbDataParameter description = new SqlParameter("@description", toDoItem.Description);
+                IDbDataParameter parent_task_id = new SqlParameter("@parent_task_id", toDoItem.Parent_task_id);
 
                 command.Parameters.Add(title);
                 command.Parameters.Add(description);
@@ -111,6 +112,7 @@ namespace ToDo.DA.Mapper.MsSql
                             SET title = @title
                             , description = @description
                             , complete = @complete
+                            , parent_task_id = @parent_task_id
                             WHERE id = @ids";
 
             // access the database and retrieve data
@@ -122,12 +124,14 @@ namespace ToDo.DA.Mapper.MsSql
                 IDbDataParameter title = new SqlParameter("@title", toDoItem.Title);
                 IDbDataParameter description = new SqlParameter("@description", toDoItem.Description);
                 IDbDataParameter complete = new SqlParameter("@complete", toDoItem.Complete);
-                IDbDataParameter id = new SqlParameter("@id", toDoItem.Id);
+                IDbDataParameter id = new SqlParameter("@ids", toDoItem.Id);
+                IDbDataParameter parent_task_id = new SqlParameter("@parent_task_id", toDoItem.Parent_task_id);
 
                 command.Parameters.Add(title);
                 command.Parameters.Add(description);
                 command.Parameters.Add(complete);
                 command.Parameters.Add(id);
+                command.Parameters.Add(parent_task_id);
 
                 try
                 {

@@ -11,7 +11,7 @@ namespace ToDo.Entity
         private string _title;
         private string _description;
         private bool _complete;
-
+        private string _parent_task_id;
         
 
         public string Id
@@ -30,6 +30,12 @@ namespace ToDo.Entity
         {
             get { return _description; }
             set { _description = value; }
+        }
+
+        public string Parent_task_id
+        {
+            get { return _parent_task_id; }
+            set { _parent_task_id = value; }
         }
 
         public bool Complete
