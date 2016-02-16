@@ -58,6 +58,24 @@ namespace ToDo.Web {
         protected global::System.Web.UI.WebControls.Button btnAddTask;
         
         /// <summary>
+        /// rptTasks control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptTasks;
+        
+        /// <summary>
+        /// ltMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal ltMessage;
+        
+        /// <summary>
         /// dlTasks control.
         /// </summary>
         /// <remarks>
