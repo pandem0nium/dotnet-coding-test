@@ -5,6 +5,41 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>ACME To Do List</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            // detect editlink click and get id to pass to web method to pull related/associated teaks
+            $(".editlink").click(function () {
+
+                var id = $(this).data("id");
+
+                // make call to webmethod to get associated uncompleted tasks if any
+                $.ajax({
+                    type: "POST",
+                    url: "Default.aspx/GetDependents",
+                    data: '{name: "' + $("#<%=txtUserName.ClientID%>")[0].value + '" }',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        if (data["hasAssociation"] == true) {
+                            // disable save button
+
+                            // show dependent associations
+                            $("#" + id).append(data["dependentlist"]);
+                        }
+                    },
+                    failure: function (response) {
+                        alert(response.d);
+                    }
+                });
+
+            });
+
+        });
+
+    </script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -26,7 +61,7 @@
                         <li>
                             <%# DataBinder.Eval(Container.DataItem, "Title") %> <asp:CheckBox runat="server" ID="chkComplete" Enabled="false" Checked='<%# DataBinder.Eval(Container.DataItem, "Complete") %>' />
                             <br />
-                            <asp:LinkButton runat="server" ID="lbEdit" Text="Edit" CommandName="Edit"></asp:LinkButton>
+                            <asp:LinkButton runat="server" ID="lbEdit" Text="Edit" class="editlink" data-id='<%# DataBinder.Eval(Container.DataItem, "id") %>' CommandName="Edit"></asp:LinkButton>
                         </li>
             </ItemTemplate>
 
@@ -38,6 +73,11 @@
                             <br />
                             <asp:CheckBox runat="server" ID="chkComplete" Checked='<%# DataBinder.Eval(Container.DataItem, "Complete") %>' />
                             <br />
+                            Associated Tasks:
+                            <br />
+                            <div id='<%# DataBinder.Eval(Container.DataItem, "id") %>' class="dvatasks"></div>
+                            <br />
+
                             <asp:Button runat="server" ID="btnUpdate" Text="Save" CommandName="Update" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "Id") %>' />
                         </li>
             </EditItemTemplate>

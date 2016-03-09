@@ -122,7 +122,7 @@ namespace ToDo.DA.Mapper.MsSql
                 IDbDataParameter title = new SqlParameter("@title", toDoItem.Title);
                 IDbDataParameter description = new SqlParameter("@description", toDoItem.Description);
                 IDbDataParameter complete = new SqlParameter("@complete", toDoItem.Complete);
-                IDbDataParameter id = new SqlParameter("@id", toDoItem.Id);
+                IDbDataParameter id = new SqlParameter("@ids", toDoItem.Id);
 
                 command.Parameters.Add(title);
                 command.Parameters.Add(description);

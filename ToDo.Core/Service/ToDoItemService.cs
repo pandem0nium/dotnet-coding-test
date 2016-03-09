@@ -28,7 +28,8 @@ namespace ToDo.Core.Service
             if (!string.IsNullOrEmpty(toDoItem.Id))
             {
                 // TODO implement update
-                return "";
+                // return "";
+                return Update(toDoItem);
             }
             else
             {
