@@ -6,8 +6,7 @@ namespace ToDo.Entity
         bool Complete { get; set; }
         string Description { get; set; }
         string Id { get; set; }
+        string DependentOnId { get; set; }
         string Title { get; set; }
-        int ParentId { get; set; }
-        int OrderId { get; set; }
     }
 }

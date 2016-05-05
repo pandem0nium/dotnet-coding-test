@@ -27,7 +27,13 @@ namespace ToDo.Core.Service
         {
             if (!string.IsNullOrEmpty(toDoItem.Id))
             {
-                return Update(toDoItem);
+                // TODO implement update
+                //TODO: TJH Make this a sproc
+                //string sqlCommand = String.Format("UPDATE [todo_test].[dbo].[ToDoItems] set description = '{0}', Title = '{1}' WHERE ID = '{2}'", toDoItem.Description, toDoItem.Title, toDoItem.Id);
+
+                //prefer not to do a one-liner to make it easier to read and debug.
+                var result = Update(toDoItem);
+                return result;
             }
             else
             {

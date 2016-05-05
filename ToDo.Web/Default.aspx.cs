@@ -17,47 +17,6 @@ namespace ToDo.Web
             }
         }
 
-        [System.Web.Services.WebMethod]
-        public static string GetAnyDependentTasks(string id)
-        {
-
-            string result = "";
-
-            // get the todo list items
-            ToDoService.ToDoServiceClient client = new ToDoService.ToDoServiceClient();
-
-            try
-            {
-                List<ToDoService.ToDoItemContract> toDoItems = client.GetToDoItems("").ToList();
-
-                // get specific record
-                ToDoService.ToDoItemContract singleRecord = toDoItems.Where(tdi => tdi.Id == id).FirstOrDefault();
-
-                // get records the have the same parentid as the id passed in and order by orderid asc
-                // only those whose orderid < than singleRecord.OrderId
-                foreach (var item in toDoItems.Where(tdi => tdi.Complete == false && tdi.ParentId == singleRecord.ParentId && tdi.OrderId < singleRecord.OrderId).OrderBy(tdi => tdi.OrderId).ToList())
-                {
-
-                    result = string.Format("{0}<li>{1}</li>", result, item.Title);
-                }
-
-                // if result is not empty, add enclosing ul tag
-                if (!string.IsNullOrWhiteSpace(result))
-                {
-                    result = string.Format("<ul>{0}</ul>", result);
-                }
-
-                client.Close();
-            }
-            catch (Exception ex)
-            {
-                // TODO: Log error
-                client.Abort();
-            }
-
-            return result;
-        }
-
         private void LoadTasks()
         {
             // get the todo list items

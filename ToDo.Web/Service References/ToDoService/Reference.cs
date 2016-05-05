@@ -33,12 +33,6 @@ namespace ToDo.Web.ToDoService {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TitleField;
-
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int ParentIdField;
-
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int OrderIdField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -98,40 +92,6 @@ namespace ToDo.Web.ToDoService {
                 if ((object.ReferenceEquals(this.TitleField, value) != true)) {
                     this.TitleField = value;
                     this.RaisePropertyChanged("Title");
-                }
-            }
-        }
-
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int ParentId
-        {
-            get
-            {
-                return this.ParentIdField;
-            }
-            set
-            {
-                if ((object.ReferenceEquals(this.ParentIdField, value) != true))
-                {
-                    this.ParentIdField = value;
-                    this.RaisePropertyChanged("ParentId");
-                }
-            }
-        }
-
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int OrderId
-        {
-            get
-            {
-                return this.OrderIdField;
-            }
-            set
-            {
-                if ((object.ReferenceEquals(this.OrderIdField, value) != true))
-                {
-                    this.OrderIdField = value;
-                    this.RaisePropertyChanged("OrderId");
                 }
             }
         }

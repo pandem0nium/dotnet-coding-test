@@ -11,15 +11,20 @@ namespace ToDo.Entity
         private string _title;
         private string _description;
         private bool _complete;
-        private int _parentid;
-        private int _orderid;
+        private string _dependentOnId;
 
-        
+
 
         public string Id
         {
             get { return _id; }
             set { _id = value; }
+        }
+
+        public string DependentOnId
+        {
+            get { return _dependentOnId; }
+            set { _dependentOnId = value; }
         }
 
         public string Title
@@ -38,18 +43,6 @@ namespace ToDo.Entity
         {
             get { return _complete; }
             set { _complete = value; }
-        }
-
-        public int ParentId
-        {
-            get { return _parentid; }
-            set { _parentid = value; }
-        }
-
-        public int OrderId
-        {
-            get { return _orderid; }
-            set { _orderid = value; }
         }
     }
 }
